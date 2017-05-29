@@ -1,5 +1,40 @@
 var baseUrl = location.origin;
 
+
+var octopus = {
+    ajaxRequest: function(url, method, data, callback) {
+        $.ajax({
+            url: url,
+            type: method,
+            data: data,
+            success: function(data, textStatus, request) {
+                callback(null, data);
+            },
+            error: function(e) {
+                callback(e);
+            }
+        })
+    },
+    checkImages () {
+        var array = document.getElementsByClassName('mainImage');
+        //var array = document.getElementsByClassName('profile');
+        for (let i = 0; i < array.length; i++) {
+        this.urlPicExists(array[i]);
+
+        }
+    },
+    urlPicExists (pic) {
+        var imageData = new Image();
+        imageData.onload = function () {};
+        imageData.onerror = function () {
+        pic.src = baseUrl + '/img/noimage.png';
+        imageData.src = pic.src;
+        }        
+    },
+    removeItem: function(data) {
+
+    }
+}
 function ajaxRequest(url, method, data, callback) {
     $.ajax({
         url: url,
@@ -18,6 +53,7 @@ function ajaxRequest(url, method, data, callback) {
     var array = document.getElementsByClassName('mainImage');
     for (let i = 0; i < array.length; i++) {
       urlPicExists(array[i]);
+      
     }
   }
 
@@ -42,10 +78,7 @@ $(document).ready(function(){
             gutter:10
         }); 
     });
-checkImages ();
-
-//$('.imageHolder img').brokenImage({replacement: '/img/noimage.png',timeout: 1000});
-
+octopus.checkImages ();
 
     $( document.body).on('click','.delete', function(e) {
         e.preventDefault();

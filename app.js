@@ -4,6 +4,7 @@ const path = require('path');
 const favicon = require('serve-favicon');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
+const expressValidator = require('express-validator');
 const session = require('express-session');
 const hbs = require('hbs')
 const {mongoose} = require('./db/mongoose');
@@ -25,6 +26,7 @@ hbs.registerPartials(__dirname + '/views/partials')
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(expressValidator());
 app.use(session({
     secret: 'yoursecret',
     resave: false,

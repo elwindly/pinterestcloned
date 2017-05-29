@@ -13,7 +13,20 @@ var options = {
     lang: 'en'
 };
 
+const id = "58efd27944e4cf3018b78a16";
+// Image.listOfImages("SzelesLszl1", true, "FakeUser2")
+//     .then((list) => console.log(JSON.stringify(list, '', 2)))
+//     .catch((e) => console.log(e));
+Image.findOne({_id: id, owner:"FakeUser1"})
+    .then((img) => {
+        console.log(img);
+        console.log(img.voters);
+        console.log(img.voters.indexOf("FakeUser1"));
+        img.voters.splice(img.voters.indexOf("FakeUser1"), 1);
 
+        img.save().then((image)=> console.log(image));
+    })
+    .catch((e) => console.log(e));
 //   let image = new Image({
 //       title: 'GoodTitle',
 //       link: 'https://images-na.ssl-images-amazon.com/images/I/51AQJ0RRidL.jpg',
@@ -27,25 +40,25 @@ var options = {
 //     console.log(e);
 //   });
 
-Image.findOneAndUpdate( {
-    _id: "58efd27944e4cf3018b78a16"
-}, {
-     $inc: {"likes":1}, 
-     $push: {voters:"FakeUser1"},
-}, function(err, raw) {
-    if (err) console.log(err);
-    console.log(raw);
-});
+// Image.findOneAndUpdate( {
+//     _id: "58efd27944e4cf3018b78a16"
+// }, {
+//      $inc: {"likes":1}, 
+//      $push: {voters:"FakeUser1"},
+// }, function(err, raw) {
+//     if (err) console.log(err);
+//     console.log(raw);
+// });
 
-Image.findOneAndUpdate( {
-    _id: "58efd27944e4cf3018b78a16"
-}, {
-     $inc: {"likes":-1}, 
-     $pull: {voters:"FakeUser2"},
-}, function(err, raw) {
-    if (err) console.log(err);
-    console.log(raw);
-});
+// Image.findOneAndUpdate( {
+//     _id: "58efd27944e4cf3018b78a16"
+// }, {
+//      $inc: {"likes":-1}, 
+//      $pull: {voters:"FakeUser2"},
+// }, function(err, raw) {
+//     if (err) console.log(err);
+//     console.log(raw);
+// });
 
 
 
